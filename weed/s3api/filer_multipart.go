@@ -5,15 +5,16 @@ import (
 	"encoding/hex"
 	"encoding/xml"
 	"fmt"
-	"github.com/seaweedfs/seaweedfs/weed/s3api/s3_constants"
-	"github.com/seaweedfs/seaweedfs/weed/stats"
-	"golang.org/x/exp/slices"
 	"math"
 	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/seaweedfs/seaweedfs/weed/s3api/s3_constants"
+	"github.com/seaweedfs/seaweedfs/weed/stats"
+	"golang.org/x/exp/slices"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -209,6 +210,7 @@ func (s3a *S3ApiServer) completeMultipartUpload(input *s3.CompleteMultipartUploa
 					ModifiedTsNs: chunk.ModifiedTsNs,
 					CipherKey:    chunk.CipherKey,
 					ETag:         chunk.ETag,
+					IsCompressed: chunk.IsCompressed,
 				}
 				finalParts = append(finalParts, p)
 				offset += int64(chunk.Size)
